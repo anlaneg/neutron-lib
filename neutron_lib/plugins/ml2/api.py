@@ -374,6 +374,7 @@ class MechanismDriver(object):
 
     @property
     def _supports_port_binding(self):
+        #检查是否支持port_binding,如果上层overwrite bind_port方法，则支持
         return self.__class__.bind_port != MechanismDriver.bind_port
 
     def check_vlan_transparency(self, context):
@@ -395,6 +396,7 @@ class MechanismDriver(object):
 
     @classmethod
     def is_host_filtering_supported(cls):
+        #检查是否支持segment访问过滤
         return (cls.filter_hosts_with_segment_access !=
                 MechanismDriver.filter_hosts_with_segment_access)
 

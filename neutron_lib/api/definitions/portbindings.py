@@ -18,8 +18,10 @@ from neutron_lib import constants
 
 
 # The type of vnic that this port should be attached to
+#vnic类型，例如sr-iov方式，
 VNIC_TYPE = 'binding:vnic_type'
 # The service will return the vif type for the specific port.
+#虚接口类型
 VIF_TYPE = 'binding:vif_type'
 # The service may return a dictionary containing additional
 # information needed by the interface driver. The set of items
@@ -27,10 +29,12 @@ VIF_TYPE = 'binding:vif_type'
 VIF_DETAILS = 'binding:vif_details'
 # In some cases different implementations may be run on different hosts.
 # The host on which the port will be allocated.
+#接口在哪个host上
 HOST_ID = 'binding:host_id'
 # The profile will be a dictionary that enables the application running
 # on the specific host to pass and receive vif port specific information to
 # the plugin.
+# 接口配置信息
 PROFILE = 'binding:profile'
 
 # The keys below are used in the VIF_DETAILS attribute to convey
@@ -80,7 +84,7 @@ VIF_TYPE_VHOST_USER = 'vhostuser'
 
 VIF_TYPE_UNBOUND = 'unbound'
 VIF_TYPE_BINDING_FAILED = 'binding_failed'
-VIF_TYPE_DISTRIBUTED = 'distributed'
+VIF_TYPE_DISTRIBUTED = 'distributed' #vif是分布式路由器类型接口
 VIF_TYPE_OVS = 'ovs'
 VIF_TYPE_BRIDGE = 'bridge'
 VIF_TYPE_OTHER = 'other'
