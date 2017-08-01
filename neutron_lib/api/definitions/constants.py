@@ -27,3 +27,6 @@ FW_VALID_ACTION_VALUES = [FWAAS_ALLOW, FWAAS_DENY, FWAAS_REJECT]
 # Firewall Protocol List
 
 FW_PROTOCOL_VALUES = list(constants.IPTABLES_PROTOCOL_MAP.keys()) + [None]
+
+# a default resource, such as auto allocated topology is_default network
+IS_DEFAULT = 'is_default'

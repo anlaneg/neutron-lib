@@ -10,16 +10,24 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+from neutron_lib.api.definitions import address_scope
+from neutron_lib.api.definitions import agent
+from neutron_lib.api.definitions import auto_allocated_topology
 from neutron_lib.api.definitions import bgpvpn
+from neutron_lib.api.definitions import bgpvpn_routes_control
 from neutron_lib.api.definitions import data_plane_status
+from neutron_lib.api.definitions import dns
+from neutron_lib.api.definitions import dns_domain_ports
 from neutron_lib.api.definitions import extra_dhcp_opt
 from neutron_lib.api.definitions import fip64
 from neutron_lib.api.definitions import firewall
 from neutron_lib.api.definitions import firewall_v2
 from neutron_lib.api.definitions import firewallrouterinsertion
 from neutron_lib.api.definitions import l3
+from neutron_lib.api.definitions import logging
 from neutron_lib.api.definitions import logging_resource
 from neutron_lib.api.definitions import network
+from neutron_lib.api.definitions import network_mtu
 from neutron_lib.api.definitions import port
 from neutron_lib.api.definitions import port_security
 from neutron_lib.api.definitions import portbindings
@@ -32,16 +40,24 @@ from neutron_lib.api.definitions import trunk_details
 
 
 _ALL_API_DEFINITIONS = {
+    address_scope,
+    agent,
+    auto_allocated_topology,
     bgpvpn,
+    bgpvpn_routes_control,
     data_plane_status,
+    dns,
+    dns_domain_ports,
     extra_dhcp_opt,
     fip64,
     firewall,
     firewall_v2,
     firewallrouterinsertion,
     l3,
+    logging,
     logging_resource,
     network,
+    network_mtu,
     port,
     port_security,
     portbindings,

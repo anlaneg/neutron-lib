@@ -80,14 +80,6 @@ class HackingTestCase(base.BaseTestCase):
                     "./neutron/plugins/ml2/drivers/openvswitch/agent/xenapi/"
                     "etc/xapi.d/plugins/netwrap"))))
 
-    def test_check_oslo_namespace_imports(self):
-        f = checks.check_oslo_namespace_imports
-        self.assertLinePasses(f, 'from oslo_utils import importutils')
-        self.assertLinePasses(f, 'import oslo_messaging')
-        self.assertLineFails(f, 'from oslo.utils import importutils')
-        self.assertLineFails(f, 'from oslo import messaging')
-        self.assertLineFails(f, 'import oslo.messaging')
-
     def test_check_contextlib_nested(self):
         f = checks.check_no_contextlib_nested
         self.assertLineFails(f, 'with contextlib.nested():', '')
@@ -197,6 +189,14 @@ class HackingTestCase(base.BaseTestCase):
         self.assertEqual(len(list(checks.assert_equal_none(
             "self.assertEqual(None, A)  # Comment"))), 1)
         self.assertEqual(len(list(checks.assert_equal_none(
+            "self.assertEqual((None, None), A)"))), 0)
+        self.assertEqual(len(list(checks.assert_equal_none(
+            "self.assertEqual((None, None), A)  # Comment"))), 0)
+        self.assertEqual(len(list(checks.assert_equal_none(
+            "self.assertEqual(A, (None, None))"))), 0)
+        self.assertEqual(len(list(checks.assert_equal_none(
+            "self.assertEqual(A, (None, None))  # Comment"))), 0)
+        self.assertEqual(len(list(checks.assert_equal_none(
             "assertIsNot(A, None)"))), 1)
         self.assertEqual(len(list(checks.assert_equal_none(
             "assertIsNot(A, None)  # Comment"))), 1)
@@ -204,6 +204,14 @@ class HackingTestCase(base.BaseTestCase):
             "assertIsNot(None, A)"))), 1)
         self.assertEqual(len(list(checks.assert_equal_none(
             "assertIsNot(None, A)  # Comment"))), 1)
+        self.assertEqual(len(list(checks.assert_equal_none(
+            "assertIsNot((None, None), A)"))), 0)
+        self.assertEqual(len(list(checks.assert_equal_none(
+            "assertIsNot((None, None), A)  # Comment"))), 0)
+        self.assertEqual(len(list(checks.assert_equal_none(
+            "assertIsNot(A, (None, None))"))), 0)
+        self.assertEqual(len(list(checks.assert_equal_none(
+            "assertIsNot(A, (None, None))  # Comment"))), 0)
         self.assertEqual(
             len(list(checks.assert_equal_none("self.assertIsNone(A)"))), 0)
         self.assertEqual(

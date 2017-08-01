@@ -223,7 +223,7 @@ class TestConvertStringToCaseInsensitive(base.BaseTestCase):
 
     def test_convert_string_to_lower(self):
         result = converters.convert_string_to_case_insensitive(u"THIS Is tEsT")
-        self.assertTrue(isinstance(result, six.string_types))
+        self.assertIsInstance(result, six.string_types)
 
     def test_assert_error_on_non_string(self):
         for invalid in [[], 123]:
@@ -270,3 +270,31 @@ class TestConvertProtocol(base.BaseTestCase):
     def test_unknown_string(self):
         with testtools.ExpectedException(n_exc.InvalidInput):
             converters.convert_to_protocol("Invalid")
+
+
+class TestConvertToString(base.BaseTestCase):
+
+    def test_data_is_string(self):
+        self.assertEqual('10000', converters.convert_to_string('10000'))
+
+    def test_data_is_integer(self):
+        self.assertEqual('10000', converters.convert_to_string(10000))
+
+    def test_data_is_integer_zero(self):
+        self.assertEqual('0', converters.convert_to_string(0))
+
+    def test_data_is_none(self):
+        self.assertIsNone(converters.convert_to_string(None))
+
+    def test_data_is_empty_list(self):
+        self.assertEqual('[]', converters.convert_to_string([]))
+
+    def test_data_is_list(self):
+        self.assertEqual("[1, 2, 3]", converters.convert_to_string([1, 2, 3]))
+
+    def test_data_is_empty_dict(self):
+        self.assertEqual('{}', converters.convert_to_string({}))
+
+    def test_data_is_dict(self):
+        self.assertEqual("{'foo': 'bar'}",
+                         converters.convert_to_string({'foo': 'bar'}))

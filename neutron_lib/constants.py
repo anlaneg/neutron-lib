@@ -74,6 +74,9 @@ ROUTER_INTERFACE_OWNERS_SNAT = (DEVICE_OWNER_ROUTER_INTF,
                                 DEVICE_OWNER_HA_REPLICATED_INT,
                                 DEVICE_OWNER_DVR_INTERFACE,
                                 DEVICE_OWNER_ROUTER_SNAT)
+
+DEVICE_ID_RESERVED_DHCP_PORT = 'reserved_dhcp_port'
+
 FLOATINGIP_KEY = '_floatingips'
 INTERFACE_KEY = '_interfaces'
 HA_INTERFACE_KEY = '_ha_interface'
@@ -304,6 +307,18 @@ VXLAN_UDP_PORT = 4789
 GENEVE_ENCAP_MIN_OVERHEAD = 30
 GRE_ENCAP_OVERHEAD = 22
 VXLAN_ENCAP_OVERHEAD = 30
+
+# For DNS extension
+DNS_DOMAIN_DEFAULT = 'openstacklocal.'
+DNS_LABEL_MAX_LEN = 63
+DNS_LABEL_REGEX = "^[a-z0-9-]{1,%d}$" % DNS_LABEL_MAX_LEN
+
+VALID_DSCP_MARKS = [0, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34,
+                    36, 38, 40, 46, 48, 56]
+
+INGRESS_DIRECTION = 'ingress'
+EGRESS_DIRECTION = 'egress'
+VALID_DIRECTIONS = (INGRESS_DIRECTION, EGRESS_DIRECTION)
 
 
 class Sentinel(object):

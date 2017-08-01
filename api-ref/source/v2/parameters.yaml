@@ -127,6 +127,12 @@ loadbalancer-id-path:
   in: path
   required: true
   type: string
+log_id-path:
+  description: |
+    The ID of the log resource.
+  in: path
+  required: true
+  type: string
 logging_resource_id:
   description: |
     The ID of the logging resource.
@@ -199,6 +205,12 @@ qos-rule_id:
   in: path
   required: true
   type: string
+rbac_policy_id-path:
+  description: |
+    The ID of the RBAC policy.
+  in: path
+  required: true
+  type: integer
 resource_id:
   description: |
     The ID of resource which the tag is set on.
@@ -674,7 +686,7 @@ bgpvpn-name-required:
   type: string
 bgpvpn-network_association:
   description: |
-    A ``network_association`` object represents the binding of an MPLS network
+    A ``network_association`` object represents the binding of a BGP VPN
     to a Neutron network.
   in: body
   required: true
@@ -700,25 +712,29 @@ bgpvpn-network_id:
   type: string
 bgpvpn-networks:
   description: |
-       This read-only list of network IDs reflects the associations defined by Network association API resources.
+       This read-only list of network IDs reflects the associations defined by
+       Network association API resources.
   in: body
   required: false
   type: array
 bgpvpn-networks-required:
   description: |
-       This read-only list of network IDs reflects the associations defined by Network association API resources.
+       This read-only list of network IDs reflects the associations defined by
+       Network association API resources.
   in: body
   required: true
   type: array
 bgpvpn-route_distinguishers:
   description: |
-      List of route distinguisher strings. If this parameter is specified, one of these RDs will be used to advertise VPN routes.
+      List of route distinguisher strings. If this parameter is specified, one
+      of these RDs will be used to advertise VPN routes.
   in: body
   required: false
   type: array
 bgpvpn-route_distinguishers-required:
   description: |
-      List of route distinguisher strings. If this parameter is specified, one of these RDs will be used to advertise VPN routes.
+      List of route distinguisher strings. If this parameter is specified, one
+      of these RDs will be used to advertise VPN routes.
   in: body
   required: true
   type: array
@@ -736,7 +752,7 @@ bgpvpn-route_targets-required:
   type: array
 bgpvpn-router_association:
   description: |
-    A ``router_association`` object represents the binding of an MPLS network
+    A ``router_association`` object represents the binding of a BGP VPN
     to a Neutron router.
   in: body
   required: true
@@ -762,13 +778,15 @@ bgpvpn-router_id:
   type: string
 bgpvpn-routers:
   description: |
-      This read-only list of router IDs reflects the associations defined by Router association API resources.
+      This read-only list of router IDs reflects the associations defined by
+      Router association API resources.
   in: body
   required: false
   type: array
 bgpvpn-routers-required:
   description: |
-      This read-only list of router IDs reflects the associations defined by Router association API resources.
+      This read-only list of router IDs reflects the associations defined by
+      Router association API resources.
   in: body
   required: true
   type: array
@@ -860,7 +878,7 @@ binding:vnic_type:
     The type of vNIC which this port should be attached to. This is used to
     determine which mechanism driver(s) to be used to bind the port.
     The valid values are ``normal``, ``macvtap``, ``direct``, ``baremetal``,
-    and ``direct-physical``.
+    ``direct-physical`` and ``virtio-forwarder``.
     What type of vNIC is actually available depends on deployments.
   in: body
   required: true
@@ -870,7 +888,7 @@ binding:vnic_type-request:
     The type of vNIC which this port should be attached to. This is used to
     determine which mechanism driver(s) to be used to bind the port.
     The valid values are ``normal``, ``macvtap``, ``direct``, ``baremetal``,
-    and ``direct-physical``.
+    ``direct-physical`` and ``virtio-forwarder``.
     What type of vNIC is actually available depends on deployments.
     The default is ``normal``.
   in: body
@@ -2997,6 +3015,58 @@ location:
   in: body
   required: true
   type: string
+log:
+  description: |
+    A ``log`` object.
+  in: body
+  required: true
+  type: object
+log_enabled:
+  description: |
+    Indicates whether this log object is enabled or disabled.
+  in: body
+  required: true
+  type: boolean
+log_enabled-request:
+  description: |
+    Indicates whether this log object is enabled or disabled.
+    Default is true.
+  in: body
+  required: false
+  type: boolean
+log_enabled-request-put:
+  description: |
+    Indicates whether this log object is enabled or disabled.
+  in: body
+  required: false
+  type: boolean
+log_event:
+  description: |
+    Type of security events to log.
+    ``ACCEPT``, ``DROP``, or ``ALL``.
+  in: body
+  required: true
+  type: string
+log_event-request:
+  description: |
+    Type of security events to log.
+    ``ACCEPT``, ``DROP``, or ``ALL``.
+    Default is ``ALL``.
+  in: body
+  required: false
+  type: string
+log_id:
+  description: |
+    The ID of the log object.
+  in: body
+  required: true
+  type: string
+loggable_resources:
+  description: |
+    A list of ``loggable_resource`` object.
+  in: body
+  required: true
+  type: object
 logging_resource:
   description: |
     A ``logging_resource`` object.
@@ -3031,6 +3101,12 @@ logging_resource_id-body:
 logging_resources:
   description: |
     A list of ``logging_resource`` objects.
+  in: body
+  required: true
+  type: array
+logs:
+  description: |
+    A list of ``log`` objects.
   in: body
   required: true
   type: array
@@ -3715,6 +3791,21 @@ networks:
   in: body
   required: true
   type: array
+object_id:
+  description: |
+    The ID of the ``object_type`` resource. An ``object_type`` of ``network``
+    returns a network ID and an ``object_type`` of ``qos-policy`` returns
+    a QoS ID.
+  in: body
+  required: true
+  type: integer
+object_type:
+  description: |
+    The type of the object that the RBAC policy affects. Types include
+    ``qos-policy`` or ``network``.
+  in: body
+  required: true
+  type: integer
 operating_status:
   description: |
     The operating status of the load balancer.  This
@@ -4163,6 +4254,44 @@ psk:
   in: body
   required: true
   type: string
+qos-rule-direction:
+  description: |
+    The direction of the traffic to which the QoS
+    rule is applied, as seen from the point of view
+    of the ``port``.
+    Valid values are ``egress`` and ``ingress``.
+    Default value is ``egress``.
+  in: body
+  required: false
+  type: string
+qos-rule-direction-response:
+  description: |
+    The direction of the traffic to which the QoS
+    rule is applied, as seen from the point of view
+    of the ``port``.
+    Valid values are ``egress`` and ``ingress``.
+    Default value is ``egress``.
+  in: body
+  required: true
+  type: string
+qos-rule-direction-update:
+  description: |
+    The direction of the traffic to which the QoS
+    rule is applied, as seen from the point of view
+    of the ``port``.
+    Valid values are ``egress`` and ``ingress``.
+  in: body
+  required: false
+  type: string
+qos-rule-direction-update-response:
+  description: |
+    The direction of the traffic to which the QoS
+    rule is applied, as seen from the point of view
+    of the ``port``.
+    Valid values are ``egress`` and ``ingress``.
+  in: body
+  required: true
+  type: string
 qos-rule-type:
   description: |
     The type of QoS rule.
@@ -4371,6 +4500,19 @@ quotas:
   in: body
   required: true
   type: array
+rbac_action:
+  description: |
+    Action for the RBAC policy which is ``access_as_external`` or
+    ``access_as_shared``.
+  in: body
+  required: true
+  type: string
+rbac_policy_id:
+  description: |
+    The ID of the RBAC policy.
+  in: body
+  required: true
+  type: integer
 remote_group_id:
   description: |
     The remote group UUID to associate with this
@@ -4445,6 +4587,36 @@ resource-rel:
     Relationship between link and the resource.
   in: body
   required: true
+  type: string
+resource_log_id:
+  description: |
+    The ID of resource log (e.g security group ID).
+  in: body
+  required: true
+  type: string
+resource_log_id-request:
+  description: |
+    The ID of resource log (e.g security group ID).
+  in: body
+  required: false
+  type: string
+resource_log_type:
+  description: |
+    The resource log type such as 'security_group'.
+  in: body
+  required: true
+  type: string
+resource_target_log_id:
+  description: |
+    The ID of resource target log such as port ID.
+  in: body
+  required: true
+  type: string
+resource_target_log_id-request:
+  description: |
+    The ID of resource target log such as port ID.
+  in: body
+  required: false
   type: string
 resources:
   description: |
@@ -5319,6 +5491,12 @@ tags:
   in: body
   required: true
   type: array
+target_tenant:
+  description: |
+    The ID of the tenant to which the RBAC policy will be enforced.
+  in: body
+  required: true
+  type: string
 tenant_id:
   description: |
     The ID of the project that owns the resource.

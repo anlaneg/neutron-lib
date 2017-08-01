@@ -1,10 +1,10 @@
 .. -*- rst -*-
 
-==================
-QoS policies (qos)
-==================
+==============
+QoS rule types
+==============
 
-Lists, creates, shows information for, and updates QoS policies.
+List QoS rule types available in current deployment.
 
 List QoS rule types
 ===================
@@ -30,6 +30,12 @@ Response Example
 
 .. literalinclude:: samples/qos/rule_types-list-response.json
    :language: javascript
+
+==================
+QoS policies (qos)
+==================
+
+Lists, creates, deletes, shows information for, and updates QoS policies.
 
 List QoS policies
 =================
@@ -249,6 +255,12 @@ Response
 
 There is no body content for the response of a successful DELETE request.
 
+=========================
+QoS bandwidth limit rules
+=========================
+
+Lists, creates, deletes, shows information for, and updates QoS bandwidth limit rules.
+
 List bandwidth limit rules for QoS policy
 =========================================
 
@@ -278,6 +290,7 @@ Response Parameters
    - max_kbps: max_kbps-response
    - id: qos_bandwidth_limit_rule-id
    - max_burst_kbps: max_burst_kbps-response
+   - direction: qos-rule-direction-response
 
 Response Example
 ----------------
@@ -305,6 +318,7 @@ Request
    - bandwidth_limit_rule: bandwidth_limit_rule
    - max_kbps: max_kbps
    - max_burst_kbps: max_burst_kbps
+   - direction: qos-rule-direction
 
 Request Example
 ---------------
@@ -321,6 +335,7 @@ Response Parameters
    - max_kbps: max_kbps-response
    - id: qos_bandwidth_limit_rule-id
    - max_burst_kbps: max_burst_kbps-response
+   - direction: qos-rule-direction-response
 
 Response Example
 ----------------
@@ -356,6 +371,7 @@ Response Parameters
    - max_kbps: max_kbps-response
    - id: qos_bandwidth_limit_rule-id
    - max_burst_kbps: max_burst_kbps-response
+   - direction: qos-rule-direction-response
 
 Response Example
 ----------------
@@ -387,6 +403,7 @@ Request
    - bandwidth_limit_rule: bandwidth_limit_rule
    - max_kbps: max_kbps
    - max_burst_kbps: max_burst_kbps
+   - direction: qos-rule-direction-update
 
 Request Example
 ---------------
@@ -403,6 +420,7 @@ Response Parameters
    - max_kbps: max_kbps-response
    - id: qos_bandwidth_limit_rule-id
    - max_burst_kbps: max_burst_kbps-response
+   - direction: qos-rule-direction-update-response
 
 Response Example
 ----------------
@@ -433,6 +451,12 @@ Response
 --------
 
 There is no body content for the response of a successful DELETE request.
+
+======================
+QoS DSCP marking rules
+======================
+
+Lists, creates, deletes, shows information for, and updates QoS DSCP marking rules.
 
 List DSCP marking rules for QoS policy
 ======================================

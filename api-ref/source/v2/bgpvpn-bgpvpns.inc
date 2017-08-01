@@ -10,7 +10,8 @@ BGP-based VPN.
 A BGPVPN is created by the admin and given to a tenant who can then associate
 it to Networks or Routers.
 
-The BGP VPNs API lists, shows details for, creates, updates, and deletes BGP VPNs.
+The BGP VPNs API lists, shows details for, creates, updates, and deletes
+BGP VPNs.
 
 List BGP VPNs
 =============
@@ -220,9 +221,9 @@ Delete BGP VPN
 
 Deletes a BGP VPN and its network and/or router associations.
 
-Normal response codes: 202
+Normal response codes: 204
 
-Error response codes: 400, 401, 403, 404
+Error response codes: 401, 403, 404
 
 Request
 -------

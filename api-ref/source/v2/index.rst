@@ -33,6 +33,7 @@ Security
 ########
 .. include:: fwaas.inc
 .. include:: fwaas-v2.inc
+.. include:: rbac-policy.inc
 .. include:: security-group-rules.inc
 .. include:: security-groups.inc
 .. include:: vpnaas.inc
@@ -52,7 +53,6 @@ Quality of Service
 ##########################
 Load Balancer as a Service
 ##########################
-.. include:: lbaas-v1.inc
 .. include:: lbaas-v2.inc
 #####################################
 Logging Resource (networking-midonet)
@@ -74,3 +74,7 @@ BGP/MPLS VPN Interconnection
 .. include:: bgpvpn-bgpvpns.inc
 .. include:: bgpvpn-network_associations.inc
 .. include:: bgpvpn-router_associations.inc
+#######
+Logging
+#######
+.. include:: logging.inc

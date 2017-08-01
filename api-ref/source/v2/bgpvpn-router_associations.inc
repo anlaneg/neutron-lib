@@ -141,9 +141,9 @@ Delete Router Association
 
 Deletes a router association.
 
-Normal response codes: 202
+Normal response codes: 204
 
-Error response codes: 400, 401, 403, 404
+Error response codes: 401, 403, 404
 
 Request
 -------

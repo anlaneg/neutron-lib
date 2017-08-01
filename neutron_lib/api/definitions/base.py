@@ -80,6 +80,7 @@ KNOWN_EXTENSIONS = (
     'data-plane-status',
     'default-subnetpools',
     'dhcp_agent_scheduler',
+    'dns-domain-ports',
     'dns-integration',
     'dvr',
     'ext-gw-mode',
@@ -89,6 +90,7 @@ KNOWN_EXTENSIONS = (
     'flavors',
     'l3-ha',
     'l3_agent_scheduler',
+    'logging',
     'metering',
     'multi-provider',
     'net-mtu',
@@ -121,6 +123,7 @@ KNOWN_EXTENSIONS = (
     'fwaasrouterinsertion',
     'fwaas_v2',
     'bgpvpn',  # https://git.openstack.org/cgit/openstack/networking-bgpvpn
+    'bgpvpn-routes-control',
 )
 
 KNOWN_KEYWORDS = (

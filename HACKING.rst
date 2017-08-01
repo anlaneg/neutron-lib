@@ -1,15 +1,14 @@
 neutron-lib Style Commandments
-===============================================
+==============================
 
 - Step 1: Read the OpenStack Style Commandments
-  http://docs.openstack.org/developer/hacking/
+  https://docs.openstack.org/hacking/latest/
 - Step 2: Read on
 
 Neutron Library Specific Commandments
 -------------------------------------
 
 - [N521] Validate that jsonutils module is used instead of json
-- [N523] DEPRECATED. Enforce namespace-less imports for oslo libraries
 - [N524] Prevent use of deprecated contextlib.nested.
 - [N525] Python 3: Do not use xrange.
 - [N526] Python 3: do not use basestring.
