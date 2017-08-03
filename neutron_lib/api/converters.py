@@ -102,6 +102,7 @@ def convert_to_positive_float_or_none(val):
 
 
 def convert_kvp_str_to_list(data):
+    #转换'key=value' 为['key','value'] 否则格式错误，扔异常
     """Convert a value of the form 'key=value' to ['key', 'value'].
 
     :param data: The string to parse for a key value pair.
@@ -115,6 +116,7 @@ def convert_kvp_str_to_list(data):
     raise n_exc.InvalidInput(error_message=msg)
 
 
+#将一组kvp列表转换为dict
 def convert_kvp_list_to_dict(kvp_list):
     """Convert a list of 'key=value' strings to a dict.
 

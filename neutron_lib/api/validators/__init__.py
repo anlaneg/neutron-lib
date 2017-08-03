@@ -87,6 +87,7 @@ def _collect_duplicates(data_list):
 
 
 def is_attr_set(attribute):
+    #检查属性是否被设置了
     """Determine if an attribute value is set.
 
     :param attribute: The attribute value to check.

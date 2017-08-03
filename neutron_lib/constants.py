@@ -46,19 +46,19 @@ DEVICE_OWNER_NEUTRON_PREFIX = "neutron:"
 DEVICE_OWNER_BAREMETAL_PREFIX = "baremetal:"
 
 DEVICE_OWNER_ROUTER_HA_INTF = (DEVICE_OWNER_NETWORK_PREFIX +
-                               "router_ha_interface")
+                               "router_ha_interface") #路由器的ha接口（即路由器上ha转用的口）
 DEVICE_OWNER_HA_REPLICATED_INT = (DEVICE_OWNER_NETWORK_PREFIX +
-                                  "ha_router_replicated_interface")
-DEVICE_OWNER_ROUTER_INTF = DEVICE_OWNER_NETWORK_PREFIX + "router_interface"
-DEVICE_OWNER_ROUTER_GW = DEVICE_OWNER_NETWORK_PREFIX + "router_gateway"
-DEVICE_OWNER_FLOATINGIP = DEVICE_OWNER_NETWORK_PREFIX + "floatingip"
-DEVICE_OWNER_DHCP = DEVICE_OWNER_NETWORK_PREFIX + "dhcp"
+                                  "ha_router_replicated_interface") #ha路由器的接口（这个用于指ha路由器上的interface)
+DEVICE_OWNER_ROUTER_INTF = DEVICE_OWNER_NETWORK_PREFIX + "router_interface" #路由器接口
+DEVICE_OWNER_ROUTER_GW = DEVICE_OWNER_NETWORK_PREFIX + "router_gateway" #路由器的gateway口（即连接外部物理网络的口）
+DEVICE_OWNER_FLOATINGIP = DEVICE_OWNER_NETWORK_PREFIX + "floatingip" #为申请floating-ip而引入的port
+DEVICE_OWNER_DHCP = DEVICE_OWNER_NETWORK_PREFIX + "dhcp" #提供dhcp服务的接口
 DEVICE_OWNER_DVR_INTERFACE = (DEVICE_OWNER_NETWORK_PREFIX +
-                              "router_interface_distributed")
+                              "router_interface_distributed") #dvr路由器的接口
 DEVICE_OWNER_AGENT_GW = (DEVICE_OWNER_NETWORK_PREFIX +
-                         "floatingip_agent_gateway")
+                         "floatingip_agent_gateway") #l3-agent需要通过fip出外网时，创建的fip gateway port
 DEVICE_OWNER_ROUTER_SNAT = (DEVICE_OWNER_NETWORK_PREFIX +
-                            "router_centralized_snat")
+                            "router_centralized_snat") #local dvr的网关，snat接口对应的类型
 DEVICE_OWNER_LOADBALANCER = DEVICE_OWNER_NEUTRON_PREFIX + "LOADBALANCER"
 DEVICE_OWNER_LOADBALANCERV2 = DEVICE_OWNER_NEUTRON_PREFIX + "LOADBALANCERV2"
 
@@ -67,9 +67,11 @@ DEVICE_OWNER_PREFIXES = (DEVICE_OWNER_NETWORK_PREFIX,
 
 # Collection used to identify devices owned by router interfaces.
 # DEVICE_OWNER_ROUTER_HA_INTF is a special case and so is not included.
+#路由器接口类型集合
 ROUTER_INTERFACE_OWNERS = (DEVICE_OWNER_ROUTER_INTF,
                            DEVICE_OWNER_HA_REPLICATED_INT,
                            DEVICE_OWNER_DVR_INTERFACE)
+#含snat类型的路由器接口类型集合
 ROUTER_INTERFACE_OWNERS_SNAT = (DEVICE_OWNER_ROUTER_INTF,
                                 DEVICE_OWNER_HA_REPLICATED_INT,
                                 DEVICE_OWNER_DVR_INTERFACE,

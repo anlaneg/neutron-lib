@@ -72,6 +72,7 @@ def receives(resource, events):
 
     def decorator(f):
         for e in events:
+            #实现对events的注册
             _REGISTERED_CLASS_METHODS[f].append((resource, e))
         return f
     return decorator

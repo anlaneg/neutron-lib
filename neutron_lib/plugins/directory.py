@@ -83,6 +83,7 @@ def add_plugin(alias, plugin):
 
 
 def get_plugin(alias=constants.CORE):
+    #取指定名称的plugin
     return _get_plugin_directory().get_plugin(alias)
 
 
