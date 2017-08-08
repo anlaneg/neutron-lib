@@ -1,3 +1,4 @@
+# encoding:utf-8
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -30,21 +31,27 @@ def parse_mappings(mapping_list, unique_values=True, unique_keys=True):
     :returns: A dict mapping keys to values or to list of values.
     :raises ValueError: Upon malformed data or duplicate keys.
     """
+    #mapping形如phys-net1:br-eth0
     mappings = {}
     for mapping in mapping_list:
         mapping = mapping.strip()
         if not mapping:
+            #跳过空串
             continue
         split_result = mapping.split(':')
         if len(split_result) != 2:
+            #非key:value形式
             raise ValueError(_("Invalid mapping: '%s'") % mapping)
         key = split_result[0].strip()
         if not key:
+            #key为空串
             raise ValueError(_("Missing key in mapping: '%s'") % mapping)
-        value = split_result[1].strip()
+        value = split_result[1].strip() #取到有值的key
         if not value:
+            #value为空串
             raise ValueError(_("Missing value in mapping: '%s'") % mapping)
         if unique_keys:
+            #需要保证key是唯一的，故在mappings中进行检查
             if key in mappings:
                 raise ValueError(_("Key %(key)s in mapping: '%(mapping)s' not "
                                    "unique") % {'key': key,
@@ -53,11 +60,13 @@ def parse_mappings(mapping_list, unique_values=True, unique_keys=True):
                 raise ValueError(_("Value %(value)s in mapping: '%(mapping)s' "
                                    "not unique") % {'value': value,
                                                     'mapping': mapping})
-            mappings[key] = value
+            mappings[key] = value #合法存入
         else:
+            #容许重复，存入成数组形式
             mappings.setdefault(key, [])
             if value not in mappings[key]:
                 mappings[key].append(value)
+    #返回解析结果
     return mappings
 
 
