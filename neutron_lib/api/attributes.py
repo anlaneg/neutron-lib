@@ -31,6 +31,7 @@ def _validate_privileges(context, res_dict):
         raise exc.HTTPBadRequest(msg)
 
 
+#为了升级方便提供的project_id,tenant_id的转换
 def populate_project_info(attributes):
     """Ensure that both project_id and tenant_id attributes are present.
 
@@ -46,11 +47,14 @@ def populate_project_info(attributes):
         don't match.
     """
     if 'tenant_id' in attributes and 'project_id' not in attributes:
+        #原属性中有tenant_id,没有project_id,则更新为project_id
         attributes['project_id'] = attributes['tenant_id']
     elif 'project_id' in attributes and 'tenant_id' not in attributes:
+        #属性中已有project_id,但无tenant_id，则增加tenant_id
         # Backward compatibility for code still using tenant_id
         attributes['tenant_id'] = attributes['project_id']
 
+    #如果两者不相等，报错
     if attributes.get('project_id') != attributes.get('tenant_id'):
         msg = _("'project_id' and 'tenant_id' do not match")
         raise exc.HTTPBadRequest(msg)

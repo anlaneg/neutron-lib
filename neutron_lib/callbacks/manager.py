@@ -42,6 +42,7 @@ class CallbacksManager(object):
 
         callback_id = _get_id(callback)
         try:
+            #为指定resource的event事件注册唯一的callback
             self._callbacks[resource][event][callback_id] = callback
         except KeyError:
             # Initialize the registry for unknown resources and/or events
@@ -50,6 +51,7 @@ class CallbacksManager(object):
             self._callbacks[resource][event][callback_id] = callback
         # We keep a copy of callbacks to speed the unsubscribe operation.
         if callback_id not in self._index:
+            #维护回调的索引信息
             self._index[callback_id] = collections.defaultdict(set)
         self._index[callback_id][resource].add(event)
 
@@ -68,6 +70,7 @@ class CallbacksManager(object):
             LOG.debug("Callback %s not found", callback_id)
             return
         if resource and event:
+            #依除回调，移除索引
             del self._callbacks[resource][event][callback_id]
             self._index[callback_id][resource].discard(event)
             if not self._index[callback_id][resource]:
@@ -162,14 +165,18 @@ class CallbacksManager(object):
     def _notify_loop(self, resource, event, trigger, **kwargs):
         """The notification loop."""
         errors = []
+        #取得所有callback
         callbacks = list(self._callbacks[resource].get(event, {}).items())
         LOG.debug("Notify callbacks %s for %s, %s",
                   [c[0] for c in callbacks], resource, event)
         # TODO(armax): consider using a GreenPile
+        #遍历这些个callback
         for callback_id, callback in callbacks:
             try:
+                #加调此callback
                 callback(resource, event, trigger, **kwargs)
             except Exception as e:
+                #如果某个回调失败，则记录错误信息，不中断后面的回调处理
                 abortable_event = (
                     event.startswith(events.BEFORE) or
                     event.startswith(events.PRECOMMIT)

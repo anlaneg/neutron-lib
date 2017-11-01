@@ -23,6 +23,7 @@ _synchronized = lockutils.synchronized_with_prefix("neutron-")
 
 
 class _PluginDirectory(object):
+    #记录有哪些插件被加载
     """A directory of activated plugins in a Neutron Deployment.
 
     The directory is bootstrapped by a Neutron Manager running in
@@ -79,6 +80,7 @@ def _get_plugin_directory():
 
 
 def add_plugin(alias, plugin):
+    #添加一个已加载的插件
     _get_plugin_directory().add_plugin(alias, plugin)
 
 
@@ -96,4 +98,5 @@ def get_unique_plugins():
 
 
 def is_loaded():
+    #是否加载了插件
     return _get_plugin_directory().is_loaded

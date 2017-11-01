@@ -50,6 +50,7 @@ RESOURCE_NAME = network.RESOURCE_NAME
 # The plural for the resource.
 COLLECTION_NAME = network.COLLECTION_NAME
 
+#provider有以下三个属性
 NETWORK_TYPE = 'provider:network_type'
 PHYSICAL_NETWORK = 'provider:physical_network'
 SEGMENTATION_ID = 'provider:segmentation_id'

@@ -72,4 +72,5 @@ class BaseWorker(service.ServiceBase):
         :returns: None
         """
         if self.worker_process_count > 0:
+            #触发after_init事件，插件可以依赖此事件做一些初始化
             registry.notify(resources.PROCESS, events.AFTER_INIT, self.start)
