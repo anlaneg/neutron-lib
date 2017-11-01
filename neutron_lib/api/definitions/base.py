@@ -112,6 +112,7 @@ KNOWN_EXTENSIONS = (
     'standard-attr-revisions',
     'standard-attr-timestamp',
     'subnet_allocation',
+    'subnet_onboard',
     'tag',
     'trunk',
     'trunk-details',
@@ -124,6 +125,7 @@ KNOWN_EXTENSIONS = (
     'fwaas_v2',
     'bgpvpn',  # https://git.openstack.org/cgit/openstack/networking-bgpvpn
     'bgpvpn-routes-control',
+    'bgpvpn-vni',
 )
 
 KNOWN_KEYWORDS = (

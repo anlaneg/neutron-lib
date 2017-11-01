@@ -1,7 +1,12 @@
 {
     "port": {
         "admin_state_up": true,
-        "allowed_address_pairs": [],
+        "allowed_address_pairs": [
+            {
+                "ip_address": "12.12.11.12",
+                "mac_address": "fa:14:2a:b3:cb:f0"
+            }
+        ],
         "binding:host_id": "4df8d9ff-6f6f-438f-90a1-ef660d4586ad",
         "binding:profile": {
             "local_link_information": [
@@ -19,6 +24,13 @@
         "description": "",
         "device_id": "d90a13da-be41-461f-9f99-1dbcf438fdf2",
         "device_owner": "baremetal:none",
+        "dns_assignment": {
+            "hostname": "myport",
+            "ip_address": "10.0.0.2",
+            "fqdn": "myport.my-domain.org"
+        },
+        "dns_domain": "my-domain.org.",
+        "dns_name": "myport",
         "fixed_ips": [
             {
                 "ip_address": "10.0.0.2",
@@ -30,10 +42,12 @@
         "name": "private-port",
         "network_id": "a87cc70a-3e15-4acf-8205-9b711a3531b7",
         "project_id": "d6700c0c9ffa4f1cb322cd4a1f3906fa",
+        "revision_number": 1,
         "security_groups": [
             "f0ac4394-7e4a-4409-9701-ba8be283dbc3"
         ],
         "status": "DOWN",
-        "tenant_id": "d6700c0c9ffa4f1cb322cd4a1f3906fa"
+        "tenant_id": "d6700c0c9ffa4f1cb322cd4a1f3906fa",
+        "port_security_enabled": true
     }
 }

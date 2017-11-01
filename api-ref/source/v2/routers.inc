@@ -10,6 +10,13 @@ appropriate external gateway.
 
 This resource is provided when ``router`` extension is enabled.
 
+Extra routes extension (``extraroute``)
+=======================================
+
+The extra route extension (``extraroute``) extends ``router`` resources adding
+a ``routes`` attribute that contains an array of route objects. Each route
+object has a ``destination`` and ``nexthop`` attribute representing the route.
+
 List routers
 ============
 
@@ -55,6 +62,7 @@ Response Parameters
    - network_id: router-network_id
    - enable_snat: router-enable_snat
    - external_fixed_ips: router-external_fixed_ips
+   - revision_number: revision_number
    - routes: router-routes
    - destination: router-destination
    - nexthop: router-nexthop
@@ -132,6 +140,7 @@ Response Parameters
    - network_id: router-network_id
    - enable_snat: router-enable_snat
    - external_fixed_ips: router-external_fixed_ips
+   - revision_number: revision_number
    - routes: router-routes
    - destination: router-destination
    - nexthop: router-nexthop
@@ -188,6 +197,7 @@ Response Parameters
    - network_id: router-network_id
    - enable_snat: router-enable_snat
    - external_fixed_ips: router-external_fixed_ips
+   - revision_number: revision_number
    - routes: router-routes
    - destination: router-destination
    - nexthop: router-nexthop
@@ -230,6 +240,7 @@ Request
    - external_fixed_ips: router-external_fixed_ips
    - router_id: router_id
    - description: description-request
+   - routes: router-routes-request
 
 Request Example
 ---------------
@@ -254,6 +265,7 @@ Response Parameters
    - network_id: router-network_id
    - enable_snat: router-enable_snat
    - external_fixed_ips: router-external_fixed_ips
+   - revision_number: revision_number
    - routes: router-routes
    - destination: router-destination
    - nexthop: router-nexthop

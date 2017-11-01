@@ -11,6 +11,13 @@
         "description": "",
         "device_id": "d90a13da-be41-461f-9f99-1dbcf438fdf2",
         "device_owner": "compute:nova",
+        "dns_assignment": {
+            "hostname": "myport",
+            "ip_address": "20.20.0.4",
+            "fqdn": "myport.my-domain.org"
+        },
+        "dns_domain": "my-domain.org.",
+        "dns_name": "myport",
         "extra_dhcp_opts": [],
         "fixed_ips": [
             {
@@ -23,10 +30,12 @@
         "name": "test-for-port-update",
         "network_id": "883fc383-5ea1-4c8b-8916-e1ddb0a9f365",
         "project_id": "522eda8d23124b25bf03fe44f1986b74",
+        "revision_number": 1,
         "security_groups": [
             "ce0179d6-8a94-4f7c-91c2-f3038e2acbd0"
         ],
         "status": "DOWN",
-        "tenant_id": "522eda8d23124b25bf03fe44f1986b74"
+        "tenant_id": "522eda8d23124b25bf03fe44f1986b74",
+        "port_security_enabled": false
     }
 }

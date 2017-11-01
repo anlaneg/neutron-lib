@@ -50,6 +50,59 @@ Valid strings for a Route Target or a Route Distinguisher are the following:
 - <4-byte AS#>:<16bit-number>
 - <4-byte IPv4>:<16bit-number>
 
+On VXLAN VNI
+============
+
+.. note:: This feature is under development in the Queens release
+
+VXLAN is one option among others that could be used for BGP E-VPNs.
+When VXLAN is used on a hardware platform the use of a locally-assigned id
+may not be always possible which introduces the need to configure a
+globally-assigned VXLAN VNI.
+
+The optional ``vni`` attribute is an admin-only parameter and allows the
+admin to enforce the use of a chosen globally-assigned VXLAN VNI for the
+said BGPVPN.
+
+The default when no VNI is specified and the VXLAN encapsulation is used, is
+to let the backend choose the VNI in advertised routes, and use the VNI in
+received routes for transmitted traffic. The backend will conform to
+E-VPN overlay specs.
+
+Valid range for the ``vni`` attribute is [1, 2\ :sup:`24`\ -1].
+
+Control of routes advertised to BGPVPNs
+=======================================
+
+.. note:: this feature is under development in the Queens release
+
+With the ``bgpvpn`` extension, when associations between networks or routers
+and BGVPNs are defined, the routes corresponding to fixed IPs of neutron ports
+will be advertised to BGPVPNs.  For router associations, extra routes of the
+router ('routes' attribute of a ``router`` resource) may also be advertised
+to BGPVPNs.
+
+To provide more flexibility, the ``bgpvpn-routes-control`` extension provides
+a way to:
+
+- advertise other routes to a BGPVPN, for instances a prefix that is reachable
+  via a neutron port, or routes leaked from another BGPVPN; this is implemented
+  thanks to the ``routes`` attribute of a BGPVPN port association
+
+- not advertise the fixed IPs of a neutron port to a BGPVPN, which can be
+  particularly relevant when other IP prefixes are reachable via the port; this
+  is implemented thanks to the ``advertise_fixed_ips`` attribute of a BGPVPN
+  port association
+
+- explictly control whether extra routes of a router are to be advertised
+  to a BGPVPN; this is implemented thanks to the ``advertise_extra_routes``
+  attribute of a BGPVPN router association
+
+- optionally control the value of the LOCAL_PREF BGP attribute of advertised
+  routes, for all routes of a BGPVPN (thanks to the ``local_pref`` attribute
+  of a BGPVPN resource) and/or per route (thanks to the ``local_pref``
+  in a port association route)
+
 ======================
 BGP - MPLS VPN Caveats
 ======================

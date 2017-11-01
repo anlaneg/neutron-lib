@@ -15,8 +15,6 @@ The extension defines several attributes whose names have a prefix
 ``binding:`` including ``binding:host_id``, ``binding:vnic_type``,
 ``binding:vif_type``, ``binding:vif_details``, and ``binding:profile``.
 
-|
-
 Data plane status extension
 ===========================
 
@@ -32,6 +30,39 @@ Supported data plane status values:
 - ``ACTIVE``: the underlying data plane is up and running
 - ``DOWN``: no traffic can flow from/to the port
 
+DNS integration
+===============
+
+The ``dns-integration`` extension adds the ``dns_name`` and ``dns_assignment``
+attributes to port resources. While the ``dns_name`` can be set on create and
+update operations, the ``dns_assignment`` is read-only and shows the
+``hostname``, ``ip_address`` and ``fqdn`` for the port's internal DNS
+assignment.
+
+To enable the ``dns_domain`` on port resources, the ``dns-domain-ports``
+extension must be used in conjunction with the ``dns-integration`` extension.
+When enabled and set, a port level ``dns_domain`` take precedence over a
+``dns_domain`` specified in the port's network allowing per-port DNS domains.
+
+Port security
+=============
+
+The ``port-security`` extension adds the ``port_security_enabled`` boolean
+attribute to ports. If a ``port-security`` value is not specified during
+port creation, a port will inherit the ``port_security_enabled`` from the
+network its connected to.
+
+Allowed address pairs
+=====================
+
+The ``allowed-address-pairs`` extension adds an ``allowed_address_pairs``
+attribute to ports. The value of ``allowed_address_pairs`` is an array of
+allowed address pair objects, each having an ``ip_address`` and a
+``mac_address``. The set of allowed address pairs defines IP and MAC address
+that the port can use when sending packets if ``port_security_enabled`` is
+``true`` (see the ``port-security`` extension). Note that while the
+``ip_address`` is required in each allowed address pair, the ``mac_address``
+is optional and will be taken from the port if not specified.
 
 Show port details
 =================
@@ -76,6 +107,9 @@ Response Parameters
    - description: description
    - device_id: device_id
    - device_owner: device_owner
+   - dns_assignment: dns_assignment
+   - dns_domain: dns_domain
+   - dns_name: dns_name
    - extra_dhcp_opts: extra_dhcp_opts
    - fixed_ips: fixed_ips
    - id: id
@@ -84,6 +118,7 @@ Response Parameters
    - network_id: network_id
    - port_security_enabled: port_security_enabled
    - project_id: project_id
+   - revision_number: revision_number
    - security_groups: port-security_groups
    - status: port-status
    - tenant_id: project_id
@@ -149,6 +184,8 @@ Request
    - description: description-request
    - device_id: device_id-request
    - device_owner: device_owner-request
+   - dns_domain: dns_domain-request
+   - dns_name: dns_name-request
    - extra_dhcp_opts: extra_dhcp_opts-request
    - fixed_ips: fixed_ips-request
    - mac_address: mac_address-request-put
@@ -186,6 +223,9 @@ Response Parameters
    - description: description
    - device_id: device_id
    - device_owner: device_owner
+   - dns_assignment: dns_assignment
+   - dns_domain: dns_domain
+   - dns_name: dns_name
    - extra_dhcp_opts: extra_dhcp_opts
    - fixed_ips: fixed_ips
    - id: id
@@ -194,6 +234,7 @@ Response Parameters
    - network_id: network_id
    - port_security_enabled: port_security_enabled
    - project_id: project_id
+   - revision_number: revision_number
    - security_groups: port-security_groups
    - status: port-status
    - tenant_id: project_id
@@ -283,6 +324,9 @@ Response Parameters
    - description: description
    - device_id: device_id
    - device_owner: device_owner
+   - dns_assignment: dns_assignment
+   - dns_domain: dns_domain
+   - dns_name: dns_name
    - extra_dhcp_opts: extra_dhcp_opts
    - fixed_ips: fixed_ips
    - id: id
@@ -291,6 +335,7 @@ Response Parameters
    - network_id: network_id
    - port_security_enabled: port_security_enabled
    - project_id: project_id
+   - revision_number: revision_number
    - security_groups: port-security_groups
    - status: port-status
    - tenant_id: project_id
@@ -336,6 +381,8 @@ Request
    - description: description-request
    - device_id: device_id-request
    - device_owner: device_owner-request
+   - dns_domain: dns_domain-request
+   - dns_name: dns_name-request
    - extra_dhcp_opts: extra_dhcp_opts-request
    - fixed_ips: fixed_ips-request
    - mac_address: mac_address-request
@@ -376,6 +423,9 @@ Response Parameters
    - description: description
    - device_id: device_id
    - device_owner: device_owner
+   - dns_assignment: dns_assignment
+   - dns_domain: dns_domain
+   - dns_name: dns_name
    - extra_dhcp_opts: extra_dhcp_opts
    - fixed_ips: fixed_ips
    - id: id
@@ -384,6 +434,7 @@ Response Parameters
    - network_id: network_id
    - port_security_enabled: port_security_enabled
    - project_id: project_id
+   - revision_number: revision_number
    - security_groups: port-security_groups
    - status: port-status
    - tenant_id: project_id
@@ -428,6 +479,8 @@ Request
    - description: description-request
    - device_id: device_id-request
    - device_owner: device_owner-request
+   - dns_domain: dns_domain-request
+   - dns_name: dns_name-request
    - extra_dhcp_opts: extra_dhcp_opts-request
    - fixed_ips: fixed_ips-request
    - mac_address: mac_address-request
@@ -462,6 +515,9 @@ Response Parameters
    - description: description
    - device_id: device_id
    - device_owner: device_owner
+   - dns_assignment: dns_assignment
+   - dns_domain: dns_domain
+   - dns_name: dns_name
    - extra_dhcp_opts: extra_dhcp_opts
    - fixed_ips: fixed_ips
    - id: id
@@ -470,6 +526,7 @@ Response Parameters
    - network_id: network_id
    - port_security_enabled: port_security_enabled
    - project_id: project_id
+   - revision_number: revision_number
    - security_groups: port-security_groups
    - status: port-status
    - tenant_id: project_id

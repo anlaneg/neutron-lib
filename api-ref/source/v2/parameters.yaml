@@ -13,6 +13,12 @@ bgpvpn-network_association_id-path:
   in: path
   required: true
   type: string
+bgpvpn-port_association_id-path:
+  description: |
+      The ID of an association between a port and a BGP VPN.
+  in: path
+  required: true
+  type: string
 bgpvpn-router_association_id-path:
   description: |
       The ID of an association between a router and a BGP VPN.
@@ -98,6 +104,12 @@ floatingip-id-path:
   required: true
   type: string
 health_monitor_id-path:
+  description: |
+    The ID for the health monitor.
+  in: path
+  required: true
+  type: string
+healthmonitor_id-path:
   description: |
     The ID for the health monitor.
   in: path
@@ -202,6 +214,14 @@ qos-policy-id-path:
 qos-rule_id:
   description: |
     The ID of the QoS rule.
+  in: path
+  required: true
+  type: string
+qos-rule_type:
+  description: |
+    The name of the QoS rule type. It should be one of the types
+    returned by the List QoS rule types API, for example
+    ``bandwidth_limit`` or ``dscp_marking``.
   in: path
   required: true
   type: string
@@ -552,27 +572,25 @@ alias:
   type: string
 allowed_address_pairs:
   description: |
-    A set of zero or more allowed address pairs.
-    An address pair consists of an IP address range and MAC address
-    with the format of
-    ``{"ip_address": "<IP address or CIDR>", "mac_address": "<MAC address>"}``.
-    A server connected to the port can send a packet with source address
-    which matches one of the specified allowed address pairs.
+    A set of zero or more allowed address pair objects each where address pair
+    object contains an ``ip_address`` and ``mac_address``. While the
+    ``ip_address`` is required, the ``mac_address`` will be taken from the
+    port if not specified. The value of ``ip_address`` can be an IP Address
+    or a CIDR (if supported by the underlying extension plugin).
+    A server connected to the port can send a packet with source address which
+    matches one of the specified allowed address pairs.
   in: body
   required: true
   type: array
 allowed_address_pairs-request:
   description: |
-    A set of zero or more allowed address pairs.
-    An address pair consists of an IP address range and MAC address
-    with the format of
-    ``{"ip_address": "<IP address or CIDR>", "mac_address": "<MAC address>"}``.
-    A server connected to the port can send a packet with source address
-    which matches one of the specified allowed address pairs.
-    The default is an empty list.
-    For each address pair, ``ip_address`` is required and IP address or
-    CIDR can be specified. ``mac_address`` is optional and if unspecified
-    the MAC address of the port is used as default.
+    A set of zero or more allowed address pair objects each where address pair
+    object contains an ``ip_address`` and ``mac_address``. While the
+    ``ip_address`` is required, the ``mac_address`` will be taken from the
+    port if not specified. The value of ``ip_address`` can be an IP Address
+    or a CIDR (if supported by the underlying extension plugin).
+    A server connected to the port can send a packet with source address which
+    matches one of the specified allowed address pairs.
   in: body
   required: false
   type: array
@@ -642,6 +660,35 @@ bgpvpn:
   in: body
   required: true
   type: object
+bgpvpn-advertise_extra_routes:
+  description: |
+      Boolean flag controlling whether or not the routes specified in the
+      ``routes`` attribute of the router will be advertised to the BGPVPN.
+  in: body
+  required: true
+  type: boolean
+bgpvpn-advertise_extra_routes-request:
+  description: |
+      Boolean flag controlling whether or not the routes specified in the
+      ``routes`` attribute of the router will be advertised to the BGPVPN
+      (default: true).
+  in: body
+  required: false
+  type: boolean
+bgpvpn-advertise_fixed_ips:
+  description: |
+      Boolean flag controlling whether or not the fixed IPs of a port will
+      be advertised to the BGPVPN.
+  in: body
+  required: true
+  type: boolean
+bgpvpn-advertise_fixed_ips-request:
+  description: |
+      Boolean flag controlling whether or not the fixed IPs of a port will
+      be advertised to the BGPVPN (default: true).
+  in: body
+  required: false
+  type: boolean
 bgpvpn-export_targets:
   description: |
       Additional Route Targets that will be used for export.
@@ -672,6 +719,20 @@ bgpvpn-import_targets-required:
   in: body
   required: true
   type: array
+bgpvpn-local_pref:
+  description: |
+      The default BGP LOCAL_PREF of routes that will be advertised to the
+      BGPVPN (unless overriden per-route).
+  in: body
+  required: true
+  type: integer
+bgpvpn-local_pref-request:
+  description: |
+      The default BGP LOCAL_PREF of routes that will be advertised to the
+      BGPVPN (unless overriden per-route). Defaults to ``null``.
+  in: body
+  required: false
+  type: integer
 bgpvpn-name:
   description: |
       The user meaningful name of the BGP VPN.
@@ -721,6 +782,40 @@ bgpvpn-networks-required:
   description: |
        This read-only list of network IDs reflects the associations defined by
        Network association API resources.
+  in: body
+  required: true
+  type: array
+bgpvpn-port_association:
+  description: |
+    A ``port_association`` object represents the binding of a BGP VPN
+    to a Neutron port.
+  in: body
+  required: true
+  type: object
+bgpvpn-port_association_id:
+  description: |
+      The ID of an association between a port and a BGP VPN.
+  in: body
+  required: true
+  type: string
+bgpvpn-port_associations:
+  description: |
+    A list of ``port_association`` objects which represent bindings
+    of MPLS networks to Neutron ports.
+  in: body
+  required: true
+  type: array
+bgpvpn-port_id:
+  description: |
+      The ID of a Neutron port with which to associate the BGP VPN.
+  in: body
+  required: true
+  type: string
+bgpvpn-ports:
+  description: |
+      This read-only list of port IDs reflects the associations defined by Port
+      association API resources (only present if the ``bgpvpn-routes-control``
+      API extension is enabled).
   in: body
   required: true
   type: array
@@ -790,6 +885,46 @@ bgpvpn-routers-required:
   in: body
   required: true
   type: array
+bgpvpn-routes:
+  description: |
+      List of routes, each route being a dict with at least a ``type`` key,
+      which can be ``prefix`` or ``bgpvpn``.
+
+      For the ``prefix`` type, the IP prefix (v4 or v6) to advertise
+      is specified in the ``prefix`` key.
+
+      For the ``bgpvpn`` type, the ``bgpvpn_id`` key specifies the BGPVPN from
+      which routes will be readvertised with the association port as the
+      nexthop (any route carrying an RT among ``route_targets`` or
+      ``import_targets`` of this BGPVPN, will be re-announced toward the RTs
+      of the associated BGPVPN (``export_targets`` + ``route_targets``), with
+      their next-hop/label pointing to this port).
+
+      For both types, the ``local_pref`` key can be used to control the
+      value of the BGP LOCAL_PREF of the routes that will be advertised.
+  in: body
+  required: true
+  type: array
+bgpvpn-routes-request:
+  description: |
+      List of routes, each route being a dict with at least a ``type`` key,
+      which can be ``prefix`` or ``bgpvpn``.
+
+      For the ``prefix`` type, the IP prefix (v4 or v6) to advertise
+      is specified in the ``prefix`` key.
+
+      For the ``bgpvpn`` type, the ``bgpvpn_id`` key specifies the BGPVPN from
+      which routes will be readvertised with the association port as the
+      nexthop (any route carrying an RT among ``route_targets`` or
+      ``import_targets`` of this BGPVPN, will be re-announced toward the RTs
+      of the associated BGPVPN (``export_targets`` + ``route_targets``), with
+      their next-hop/label pointing to this port).
+
+      For both types, the ``local_pref`` key can be used to control the
+      value of the BGP LOCAL_PREF of the routes that will be advertised.
+  in: body
+  required: false
+  type: array
 bgpvpn-type:
   description: |
       Selection of the type of VPN and the technology behind it. Allowed
@@ -808,6 +943,18 @@ bgpvpn-type-required:
   in: body
   required: true
   type: string
+bgpvpn-vni:
+  description: |
+      The globally-assigned VXLAN ``vni`` for the BGP VPN.
+  in: body
+  required: false
+  type: integer
+bgpvpn-vni-required:
+  description: |
+      The globally-assigned VXLAN ``vni`` for the BGP VPN.
+  in: body
+  required: true
+  type: integer
 bgpvpns:
   description: |
     A list of ``bgpvpn`` objects. Each ``bgpvpn`` object represents an
@@ -1419,6 +1566,37 @@ direction_2:
     instance.
   in: body
   required: true
+  type: string
+dns_assignment:
+  description: |
+    Data assigned to a port by the Networking internal DNS including the
+    ``hostname``, ``ip_address`` and ``fqdn``.
+  in: body
+  required: true
+  type: object
+dns_domain:
+  description: |
+    A valid DNS domain.
+  in: body
+  required: true
+  type: string
+dns_domain-request:
+  description: |
+    A valid DNS domain.
+  in: body
+  required: false
+  type: string
+dns_name:
+  description: |
+    A valid DNS name.
+  in: body
+  required: true
+  type: string
+dns_name-request:
+  description: |
+    A valid DNS name.
+  in: body
+  required: false
   type: string
 dpd:
   description: |
@@ -2550,16 +2728,43 @@ health_monitors_status:
   type: string
 healthmonitor:
   description: |
-    The associated healthmonitor, if any.
+    A ``healthmonitor`` object.
   in: body
   required: true
   type: object
-healthmonitor_id:
+healthmonitor-id:
   description: |
     The UUID of the health monitor.
   in: body
   required: false
   type: string
+healthmonitors-obj:
+  description: |
+    A list of ``healthmonitor`` objects.
+  in: body
+  required: true
+  type: array
+healthmonitors-request:
+  description: |
+    List of health monitors to be associated with the pool.
+    The default is an empty list.
+  in: body
+  required: false
+  type: array
+healthmonitors-response:
+  description: |
+    List of health monitors that are associated with the pool.
+  in: body
+  required: true
+  type: array
+healthmonitors_status:
+  description: |
+    A list of ``healthmonitors_status`` objects,
+    one per healthmonitor that contains a ``monitor_id``,
+    ``status`` and ``status_description``
+  in: body
+  required: true
+  type: array
 http_method:
   description: |
     The HTTP method that the monitor uses for requests.
@@ -3321,6 +3526,20 @@ metering_labels:
   in: body
   required: true
   type: array
+min_kbps:
+  description: |
+    The minimum KBPS (kilobits per second) value which should be available for
+    port.
+  in: body
+  required: true
+  type: integer
+min_kbps-response:
+  description: |
+    The minimum KBPS (kilobits per second) value which should be available for
+    port.
+  in: body
+  required: true
+  type: integer
 min_prefixlen:
   description: |
     The smallest prefix that can be allocated from a
@@ -3336,6 +3555,19 @@ min_prefixlen_1:
   in: body
   required: true
   type: integer
+minimum_bandwidth_rule:
+  description: |
+    A ``minimum_bandwidth_rule`` object.
+  in: body
+  required: true
+  type: object
+minimum_bandwidth_rules:
+  description: |
+    A list of ``minimum_bandwidth_rule`` objects associated with
+    the QoS policy.
+  in: body
+  required: true
+  type: array
 mtu:
   description: |
     The maximum transmission unit (MTU) value to
@@ -4126,10 +4358,17 @@ project_id-request:
   type: string
 protocol:
   description: |
-    The IP protocol. Valid value is ``icmp``,
-    ``tcp``, ``udp``, or ``null``. No default.
+    The IP protocol can be represented by a string, an integer, or ``null``.
+    Valid string or integer values are ``ah`` or ``51``, ``dccp`` or ``33``,
+    ``egp`` or ``8``, ``esp`` or ``50``, ``gre`` or ``47``, ``icmp`` or ``1``,
+    ``icmpv6`` or ``58``, ``igmp`` or ``2``, ``ipv6-encap`` or ``41``,
+    ``ipv6-frag`` or ``44``, ``ipv6-icmp`` or ``58``, ``ipv6-nonxt`` or ``59``,
+    ``ipv6-opts`` or ``60``, ``ipv6-route`` or ``43``, ``ospf`` or ``89``,
+    ``pgm`` or ``113``, ``rsvp`` or ``46``, ``sctp`` or ``132``,
+    ``tcp`` or ``6``, ``udp`` or ``17``, ``udplite`` or ``136``,
+    ``vrrp`` or ``112``.
   in: body
-  required: false
+  required: true
   type: string
 protocol-response:
   description: |
@@ -4177,7 +4416,7 @@ protocol_port-request:
   description: |
     The TCP or UDP port on which to listen.
   in: body
-  required: false
+  required: true
   type: integer
 provider:network_type:
   description: |
@@ -4254,6 +4493,24 @@ psk:
   in: body
   required: true
   type: string
+qos-backend-drivers:
+  description: |
+      List of loaded QoS drivers with supported
+      rule type parameters with possible values for each.
+      Each driver is represented by a dict with the keys
+      ``name`` and ``supported_parameters``.
+      Field ``name`` contains the name of a backend driver.
+      Field ``supported_parameters`` contains a list of dicts with
+      ``parameter_name``, ``parameter_type`` and ``parameter_values``
+      fields.
+      The valid values for ``parameter_type`` are ``choices`` or ``range``.
+      If ``parameter_type`` is ``choices`` then ``parameter_values``
+      contains a list of acceptable values, otherwise it contains
+      a dict with keys of ``start`` and ``end`` which define the range
+      of acceptable values.
+  in: body
+  required: true
+  type: list
 qos-rule-direction:
   description: |
     The direction of the traffic to which the QoS
@@ -4336,6 +4593,12 @@ qos_dscp_marking_rule-id:
   in: body
   required: true
   type: string
+qos_minimum_bandwidth_rule-id:
+  description: |
+    The ID of the QoS minimum bandwidth rule.
+  in: body
+  required: true
+  type: string
 qos_policy-name:
   description: |
       Human-readable name of the resource.
@@ -4363,6 +4626,15 @@ qos_policy_id-request:
 quota:
   description: |
     A ``quota`` object.
+  in: body
+  required: true
+  type: object
+quota-detail:
+  description: |
+    A ``quota`` detail object. Each key in the object corresponds to a resource
+    type (``network``, ``port``, etc.) having a quota. The value for each
+    resource type is itself an object (the quota set) containing the quota's
+    ``used``, ``limit`` and ``reserved`` integer values.
   in: body
   required: true
   type: object
@@ -4984,7 +5256,17 @@ segmentation_id:
   type: integer
 segmentation_type:
   description: |
-    The segmentation type for the subport.
+    The segmentation type for the subport. Possible values include ``vlan``
+    and ``inherit``. When ``inherit`` is specified, a port gets its
+    segmentation type from the network its connected to.
+  in: body
+  required: true
+  type: string
+segmentation_type-request:
+  description: |
+    The segmentation type for the subport. Possible values include ``vlan``
+    and ``inherit``. When ``inherit`` is specified, a port gets its
+    segmentation type from the network its connected to.
   in: body
   required: false
   type: string
@@ -5377,12 +5659,6 @@ subnet-obj:
   in: body
   required: true
   type: string
-subnet-revision_number:
-  description: |
-    The revision number of the subnet.
-  in: body
-  required: true
-  type: string
 subnet-segment_id:
   description: |
     The ID of a network segment the subnet is associated with.
@@ -5461,12 +5737,6 @@ subnetpool_is_default:
   in: body
   required: true
   type: boolean
-subnetpool_revision_number:
-  description: |
-    The revision number of the subnetpool.
-  in: body
-  required: true
-  type: string
 subnetpool_updated_at:
   description: |
     Time at which subnetpool has been updated.
@@ -5876,6 +6146,12 @@ url_path-response:
   in: body
   required: true
   type: string
+use_default_subnetpool:
+  description: |
+    Whether to allocate this subnet from the default subnet pool.
+  in: body
+  required: false
+  type: boolean
 used_ips:
   description: |
     The number of used IP addresses of all subnets in

@@ -7,6 +7,15 @@ Subnets
 Lists, shows details for, creates, updates, and deletes subnet
 resources.
 
+Default subnetpool extension
+============================
+
+The default subnetpool extension (``default-subnetpools``) allows
+administrative users to specify default subnetpools (one per
+IP version). Then users can specify the ``use_default_subnetpool``
+attribute when creating a subnet, instead of having to specify the
+``subnetpool_id`` attribute referencing the default subnetpool.
+
 List subnets
 ============
 
@@ -59,7 +68,7 @@ Response Parameters
    - description: description
    - ipv6_address_mode: subnet-ipv6_address_mode
    - ipv6_ra_mode: subnet-ipv6_ra_mode
-   - revision_number: subnet-revision_number
+   - revision_number: revision_number
    - segment_id: subnet-segment_id
    - service_types: subnet-service_types
    - subnetpool_id: subnet-subnetpool_id
@@ -140,6 +149,7 @@ Request
    - ipv6_ra_mode: subnet-ipv6_ra_mode-request
    - segment_id: subnet-segment_id-request
    - subnetpool_id: subnet-subnetpool_id-request
+   - use_default_subnetpool: use_default_subnetpool
 
 Request Example
 ---------------
@@ -169,7 +179,7 @@ Response Parameters
    - description: description
    - ipv6_address_mode: subnet-ipv6_address_mode
    - ipv6_ra_mode: subnet-ipv6_ra_mode
-   - revision_number: subnet-revision_number
+   - revision_number: revision_number
    - service_types: subnet-service_types
    - subnetpool_id: subnet-subnetpool_id
    - segment_id: subnet-segment_id
@@ -217,6 +227,7 @@ Request
    - ipv6_ra_mode: subnet-ipv6_ra_mode-request
    - segment_id: subnet-segment_id-request
    - subnetpool_id: subnet-subnetpool_id-request
+   - use_default_subnetpool: use_default_subnetpool
 
 Request Example
 ---------------
@@ -246,7 +257,7 @@ Response Parameters
    - description: description
    - ipv6_address_mode: subnet-ipv6_address_mode
    - ipv6_ra_mode: subnet-ipv6_ra_mode
-   - revision_number: subnet-revision_number
+   - revision_number: revision_number
    - segment_id: subnet-segment_id
    - service_types: subnet-service_types
    - subnetpool_id: subnet-subnetpool_id
@@ -301,7 +312,7 @@ Response Parameters
    - description: description
    - ipv6_address_mode: subnet-ipv6_address_mode
    - ipv6_ra_mode: subnet-ipv6_ra_mode
-   - revision_number: subnet-revision_number
+   - revision_number: revision_number
    - segment_id: subnet-segment_id
    - service_types: subnet-service_types
    - subnetpool_id: subnet-subnetpool_id
@@ -369,7 +380,7 @@ Response Parameters
    - description: description
    - ipv6_address_mode: subnet-ipv6_address_mode
    - ipv6_ra_mode: subnet-ipv6_ra_mode
-   - revision_number: subnet-revision_number
+   - revision_number: revision_number
    - segment_id: subnet-segment_id
    - service_types: subnet-service_types
    - subnetpool_id: subnet-subnetpool_id

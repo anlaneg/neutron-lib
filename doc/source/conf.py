@@ -47,10 +47,6 @@ todo_include_todos = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = []
-if os.getenv('HUDSON_PUBLISH_DOCS'):
-    templates_path = ['_ga', '_templates']
-else:
-    templates_path = ['_templates']
 
 # The suffix of source filenames.
 source_suffix = '.rst'
@@ -237,3 +233,10 @@ html_last_updated_fmt = '%Y-%m-%d %H:%M'
 repository_name = 'openstack/neutron-lib'
 bug_project = 'neutron'
 bug_tag = 'doc'
+
+linkcheck_anchors_ignore = [
+    # skip gerrit anchors
+    '\/q\/.*',
+    'q\,.*',
+    '\/c\/.*'
+]

@@ -7,6 +7,8 @@
             "description": "",
             "device_id": "",
             "device_owner": "",
+            "dns_domain": "",
+            "dns_name": "",
             "fixed_ips": [
                 {
                     "ip_address": "10.0.0.5",
@@ -18,11 +20,13 @@
             "name": "sample_port_1",
             "network_id": "a87cc70a-3e15-4acf-8205-9b711a3531b7",
             "project_id": "d6700c0c9ffa4f1cb322cd4a1f3906fa",
+            "revision_number": 1,
             "security_groups": [
                 "f0ac4394-7e4a-4409-9701-ba8be283dbc3"
             ],
             "status": "DOWN",
-            "tenant_id": "d6700c0c9ffa4f1cb322cd4a1f3906fa"
+            "tenant_id": "d6700c0c9ffa4f1cb322cd4a1f3906fa",
+            "port_security_enabled": false
         },
         {
             "admin_state_up": false,
@@ -31,6 +35,9 @@
             "description": "",
             "device_id": "",
             "device_owner": "",
+            "dns_assignment": {},
+            "dns_domain": "",
+            "dns_name": "",
             "fixed_ips": [
                 {
                     "ip_address": "10.0.0.6",
@@ -42,11 +49,13 @@
             "name": "sample_port_2",
             "network_id": "a87cc70a-3e15-4acf-8205-9b711a3531b7",
             "project_id": "d6700c0c9ffa4f1cb322cd4a1f3906fa",
+            "revision_number": 1,
             "security_groups": [
                 "f0ac4394-7e4a-4409-9701-ba8be283dbc3"
             ],
             "status": "DOWN",
-            "tenant_id": "d6700c0c9ffa4f1cb322cd4a1f3906fa"
+            "tenant_id": "d6700c0c9ffa4f1cb322cd4a1f3906fa",
+            "port_security_enabled": false
         }
     ]
 }
