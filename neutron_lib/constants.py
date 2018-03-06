@@ -118,7 +118,9 @@ L3_AGENT_MODE_DVR = 'dvr'
 L3_AGENT_MODE_DVR_SNAT = 'dvr_snat'
 L3_AGENT_MODE_LEGACY = 'legacy'
 L3_AGENT_MODE = 'agent_mode'
+L3_AGENT_MODE_DVR_NO_EXTERNAL = 'dvr_no_external'
 
+DVR_SNAT_BOUND = 'dvr_snat_bound'
 PORT_BINDING_EXT_ALIAS = 'binding'
 L3_AGENT_SCHEDULER_EXT_ALIAS = 'l3_agent_scheduler'
 DHCP_AGENT_SCHEDULER_EXT_ALIAS = 'dhcp_agent_scheduler'
@@ -135,6 +137,7 @@ PROTO_NAME_ESP = 'esp'
 PROTO_NAME_GRE = 'gre'
 PROTO_NAME_ICMP = 'icmp'
 PROTO_NAME_IGMP = 'igmp'
+PROTO_NAME_IPIP = 'ipip'
 PROTO_NAME_IPV6_ENCAP = 'ipv6-encap'
 PROTO_NAME_IPV6_FRAG = 'ipv6-frag'
 PROTO_NAME_IPV6_ICMP = 'ipv6-icmp'
@@ -160,6 +163,7 @@ PROTO_NUM_ESP = 50
 PROTO_NUM_GRE = 47
 PROTO_NUM_ICMP = 1
 PROTO_NUM_IGMP = 2
+PROTO_NUM_IPIP = 4
 PROTO_NUM_IPV6_ENCAP = 41
 PROTO_NUM_IPV6_FRAG = 44
 PROTO_NUM_IPV6_ICMP = 58
@@ -182,6 +186,7 @@ IP_PROTOCOL_MAP = {PROTO_NAME_AH: PROTO_NUM_AH,
                    PROTO_NAME_GRE: PROTO_NUM_GRE,
                    PROTO_NAME_ICMP: PROTO_NUM_ICMP,
                    PROTO_NAME_IGMP: PROTO_NUM_IGMP,
+                   PROTO_NAME_IPIP: PROTO_NUM_IPIP,
                    PROTO_NAME_IPV6_ENCAP: PROTO_NUM_IPV6_ENCAP,
                    PROTO_NAME_IPV6_FRAG: PROTO_NUM_IPV6_FRAG,
                    PROTO_NAME_IPV6_ICMP: PROTO_NUM_IPV6_ICMP,
@@ -346,6 +351,8 @@ HEX_ELEM = '[0-9A-Fa-f]'
 UUID_PATTERN = '-'.join([HEX_ELEM + '{8}', HEX_ELEM + '{4}',
                          HEX_ELEM + '{4}', HEX_ELEM + '{4}',
                          HEX_ELEM + '{12}'])
+
+SHARED = 'shared'
 
 
 ##########################

@@ -30,6 +30,24 @@ Supported data plane status values:
 - ``ACTIVE``: the underlying data plane is up and running
 - ``DOWN``: no traffic can flow from/to the port
 
+Extra DHCP option (``extra_dhcp_opt``) extension
+================================================
+
+The extra DHCP option (``extra_dhcp_opt``) extension enables extra
+DHCP configuration options on ``ports``. For example, PXE boot
+options to DHCP clients can be specified (e.g. tftp-server, server-ip-address,
+bootfile-name). The value of the ``extra_dhcp_opt`` attribute is an array of
+DHCP option objects, where each object contains an ``opt_name`` and
+``opt_value`` (string values) as well as an optional ``ip_version``
+(the acceptable values are either the integer ``4`` or ``6``).
+
+IP allocation extension
+=======================
+
+The IP allocation extension (``ip_allocation``) adds a new read-only attribute
+``ip_allocation`` that indicates when ports use deferred, immediate or
+no IP allocation.
+
 DNS integration
 ===============
 
@@ -63,6 +81,12 @@ that the port can use when sending packets if ``port_security_enabled`` is
 ``true`` (see the ``port-security`` extension). Note that while the
 ``ip_address`` is required in each allowed address pair, the ``mac_address``
 is optional and will be taken from the port if not specified.
+
+IP Substring Filtering
+======================
+
+The ``ip-substring-filtering`` extension adds support for filtering ports by
+using part of an IP address.
 
 Show port details
 =================
@@ -113,6 +137,7 @@ Response Parameters
    - extra_dhcp_opts: extra_dhcp_opts
    - fixed_ips: fixed_ips
    - id: id
+   - ip_allocation: ip_allocation
    - mac_address: mac_address
    - name: name
    - network_id: network_id
@@ -166,7 +191,7 @@ Only admins and users with a specific role can update the data plane status
 
 Normal response codes: 200
 
-Error response codes: 400, 401, 403, 404, 409
+Error response codes: 400, 401, 403, 404, 409, 412
 
 Request
 -------
@@ -229,6 +254,7 @@ Response Parameters
    - extra_dhcp_opts: extra_dhcp_opts
    - fixed_ips: fixed_ips
    - id: id
+   - ip_allocation: ip_allocation
    - mac_address: mac_address
    - name: name
    - network_id: network_id
@@ -264,7 +290,7 @@ the respective subnets allocation pools.
 
 Normal response codes: 204
 
-Error response codes: 401, 403, 404
+Error response codes: 401, 403, 404, 412
 
 Request
 -------
@@ -294,6 +320,12 @@ returned in the response body. Additionally, you can filter results
 by using query string parameters. For information, see `Filtering
 and Column Selection <https://wiki.openstack.org/wiki/Neutron/APIv2
 -specification#Filtering_and_Column_Selection>`__.
+
+If the ``ip-substring-filtering`` extension is enabled, the Neutron API
+supports IP address substring filtering on the ``fixed_ips`` attribute.
+If you specify an IP address substring (``ip_address_substr``) in
+an entry of the ``fixed_ips`` attribute, the Neutron API will list all
+ports that have an IP address matching the substring.
 
 Normal response codes: 200
 
@@ -330,6 +362,7 @@ Response Parameters
    - extra_dhcp_opts: extra_dhcp_opts
    - fixed_ips: fixed_ips
    - id: id
+   - ip_allocation: ip_allocation
    - mac_address: mac_address
    - name: name
    - network_id: network_id
@@ -429,6 +462,7 @@ Response Parameters
    - extra_dhcp_opts: extra_dhcp_opts
    - fixed_ips: fixed_ips
    - id: id
+   - ip_allocation: ip_allocation
    - mac_address: mac_address
    - name: name
    - network_id: network_id
@@ -521,6 +555,7 @@ Response Parameters
    - extra_dhcp_opts: extra_dhcp_opts
    - fixed_ips: fixed_ips
    - id: id
+   - ip_allocation: ip_allocation
    - mac_address: mac_address
    - name: name
    - network_id: network_id

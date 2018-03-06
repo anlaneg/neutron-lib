@@ -880,7 +880,7 @@ class TestAttributeValidation(base.BaseTestCase):
 
         constraints['key1'] = {'type:unsupported': None, 'required': True}
         msg = validators.validate_dict(dictionary, constraints)
-        self.assertEqual("Validator 'type:unsupported' does not exist.", msg)
+        self.assertEqual("Validator 'type:unsupported' does not exist", msg)
 
     def test_validate_dict_not_required_keys(self):
         dictionary, constraints = self._construct_dict_and_constraints()
@@ -1018,11 +1018,18 @@ class TestAttributeValidation(base.BaseTestCase):
     def test_validate_subports_invalid_duplicate_segmentation_id(self):
         body = [
             {'port_id': '00000000-ffff-ffff-ffff-000000000000',
-             'segmentation_id': '3', 'segmentation_type': 'vlan'},
+             'segmentation_id': 0, 'segmentation_type': 'vlan'},
             {'port_id': '11111111-ffff-ffff-ffff-000000000000',
-             'segmentation_id': '3', 'segmentation_type': 'vlan'}
+             'segmentation_id': 0, 'segmentation_type': 'vlan'}
         ]
         self.assertIsNotNone(validators.validate_subports(body))
+
+    def test_validate_subports_with_segmentation_id_0(self):
+        body = [
+            {'port_id': '00000000-ffff-ffff-ffff-000000000000',
+             'segmentation_id': '0', 'segmentation_type': 'vlan'}
+        ]
+        self.assertIsNone(validators.validate_subports(body))
 
     def test_validate_subports_inherit_segmentation_details(self):
         body = [
@@ -1118,47 +1125,51 @@ class TestPortRangeValidation(base.BaseTestCase):
         self.assertIsNone(result)
 
     def test_valid_range(self):
-        result = validators.validate_port_range_or_none("80:8888")
+        # NOTE(huntxu): This case would fail when ports are compared as
+        # strings, since '9' > '1111'.
+        result = validators.validate_port_range_or_none("9:1111")
         self.assertIsNone(result)
 
     def test_port_too_high(self):
         result = validators.validate_port_range_or_none("99999")
-        self.assertEqual(u"Invalid port: 99999.", result)
+        self.assertEqual(u"Invalid port: 99999", result)
 
     def test_port_too_low(self):
         result = validators.validate_port_range_or_none("-1")
-        self.assertEqual(u"Invalid port: -1.", result)
+        self.assertEqual(u"Invalid port: -1", result)
 
     def test_range_too_high(self):
         result = validators.validate_port_range_or_none("80:99999")
-        self.assertEqual(u"Invalid port: 99999.", result)
+        self.assertEqual(u"Invalid port: 99999", result)
 
     def test_range_too_low(self):
         result = validators.validate_port_range_or_none("-1:8888")
-        self.assertEqual(u"Invalid port: -1.", result)
+        self.assertEqual(u"Invalid port: -1", result)
 
     def test_range_wrong_way(self):
-        result = validators.validate_port_range_or_none("8888:80")
+        # NOTE(huntxu): This case would fail when ports are compared as
+        # strings, since '1111' < '9'.
+        result = validators.validate_port_range_or_none("1111:9")
         self.assertEqual(u"First port in a port range must be lower than the "
-                         "second port.", result)
+                         "second port", result)
 
     def test_range_invalid(self):
         result = validators.validate_port_range_or_none("DEAD:BEEF")
-        self.assertEqual(u"Invalid port: DEAD.", result)
+        self.assertEqual(u"Invalid port: DEAD", result)
 
     def test_range_bad_input(self):
         result = validators.validate_port_range_or_none(['a', 'b', 'c'])
-        self.assertEqual(u"Invalid port: ['a', 'b', 'c'].", result)
+        self.assertEqual(u"Invalid port: ['a', 'b', 'c']", result)
 
     def test_range_colon(self):
         result = validators.validate_port_range_or_none(":")
         self.assertEqual(u"Port range must be two integers separated by a "
-                         "colon.", result)
+                         "colon", result)
 
     def test_too_many_colons(self):
         result = validators.validate_port_range_or_none("80:888:8888")
         self.assertEqual(u"Port range must be two integers separated by a "
-                         "colon.", result)
+                         "colon", result)
 
 
 class TestAnyKeySpecs(base.BaseTestCase):

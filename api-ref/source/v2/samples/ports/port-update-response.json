@@ -18,7 +18,13 @@
         },
         "dns_domain": "my-domain.org.",
         "dns_name": "myport",
-        "extra_dhcp_opts": [],
+        "extra_dhcp_opts": [
+            {
+                "opt_value": "pxelinux.0",
+                "ip_version": 4,
+                "opt_name": "bootfile-name"
+            }
+        ],
         "fixed_ips": [
             {
                 "ip_address": "20.20.0.4",
@@ -26,6 +32,7 @@
             }
         ],
         "id": "43c831e0-19ce-4a76-9a49-57b57e69428b",
+        "ip_allocation": "immediate",
         "mac_address": "fa:16:3e:11:11:5e",
         "name": "test-for-port-update",
         "network_id": "883fc383-5ea1-4c8b-8916-e1ddb0a9f365",

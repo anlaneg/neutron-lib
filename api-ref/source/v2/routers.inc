@@ -17,6 +17,19 @@ The extra route extension (``extraroute``) extends ``router`` resources adding
 a ``routes`` attribute that contains an array of route objects. Each route
 object has a ``destination`` and ``nexthop`` attribute representing the route.
 
+Router availability zone extension (``router_availability_zones``)
+==================================================================
+
+The ``router_availability_zone`` extension adds the ``availability_zones``
+and ``availability_zone_hints`` attributes to ``routers``, allowing scheduling
+based on availability zones and hints.
+This extension requires ``router`` and ``availability_zone`` extensions.
+
+Distributed virtual router extension (``dvr``)
+==============================================
+The ``dvr`` extension enables the functionality of configuring a router as a
+distributed virtual router, adding ``distributed`` parameter.
+
 List routers
 ============
 
@@ -225,7 +238,7 @@ remove router interface operations.
 
 Normal response codes: 200
 
-Error response codes: 400, 401, 404
+Error response codes: 400, 401, 404, 412
 
 Request
 -------
@@ -241,6 +254,7 @@ Request
    - router_id: router_id
    - description: description-request
    - routes: router-routes-request
+   - distributed: router-distributed-request
 
 Request Example
 ---------------
@@ -293,7 +307,7 @@ interfaces before you delete the router.
 
 Normal response codes: 204
 
-Error response codes: 401, 404, 409
+Error response codes: 401, 404, 409, 412
 
 Request
 -------

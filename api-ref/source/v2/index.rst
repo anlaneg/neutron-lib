@@ -51,9 +51,9 @@ Resource Management
 Quality of Service
 ##################
 .. include:: qos.inc
-##########################
-Load Balancer as a Service
-##########################
+###########################################
+Load Balancer as a Service 2.0 (DEPRECATED)
+###########################################
 .. include:: lbaas-v2.inc
 #####################################
 Logging Resource (networking-midonet)
@@ -80,3 +80,11 @@ BGP/MPLS VPN Interconnection
 Logging
 #######
 .. include:: logging.inc
+#################
+Networking Agents
+#################
+.. include:: agents.inc
+#######################
+Auto Allocated Topology
+#######################
+.. include:: auto-topology.inc

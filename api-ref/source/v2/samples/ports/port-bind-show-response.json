@@ -22,7 +22,13 @@
         },
         "dns_domain": "my-domain.org.",
         "dns_name": "myport",
-        "extra_dhcp_opts": [],
+        "extra_dhcp_opts": [
+            {
+                "opt_value": "pxelinux.0",
+                "ip_version": 4,
+                "opt_name": "bootfile-name"
+            }
+        ],
         "fixed_ips": [
             {
                 "ip_address": "10.0.0.1",
@@ -30,6 +36,7 @@
             }
         ],
         "id": "46d4bfb9-b26e-41f3-bd2e-e6dcc1ccedb2",
+        "ip_allocation": "immediate",
         "mac_address": "fa:16:3e:23:fd:d7",
         "name": "",
         "network_id": "a87cc70a-3e15-4acf-8205-9b711a3531b7",

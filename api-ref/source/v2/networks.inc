@@ -45,8 +45,8 @@ VLAN transparency extension
 
 The ``vlan-transparent`` extension enables plug-ins that support VLAN
 transparency to deliver VLAN transparent trunk networks.
-This extension introduces ``vlan_transparent`` attribute to control
-a VLAN transparecy of the network. If the service does not support VLAN
+This extension introduces a ``vlan_transparent`` attribute to control
+the VLAN transparency of the network. If the service does not support VLAN
 transparency and a user requests a VLAN transparent network,
 the plug-in refuses to create one and returns an appropriate error to the user.
 
@@ -60,6 +60,24 @@ introduces a read-only ``mtu`` attribute.
 A newer ``net-mtu-writable`` extension enhances ``net-mtu`` in that now the
 ``mtu`` attribute is available for write (both when creating as well as
 updating networks).
+
+Network availability zone extension
+===================================
+
+The ``network_availability_zone`` extension provides support of availability
+zone for networks, exposing ``availability_zone_hints``
+and ``availability_zones`` attributes.
+
+L2 adjacency extension
+======================
+
+The ``l2_adjacency`` extension provides display of L2 Adjacency
+for ``networks`` by adding the read-only ``l2_adjacency`` attribute.
+This is a boolean value where ``true`` means that you can expect
+L2 connectivity throughout the Network and ``false`` means that there
+is no guarantee of L2 connectivity.
+This value is read-only and is derived from the current state of
+``segments`` within the ``network``.
 
 DNS integration
 ===============
@@ -81,6 +99,19 @@ explicitly set on the port itself. While the default value for
 respective network. Note that changing a value of ``port_security_enabled``
 on a network, does not cascade the value to ports attached to the network.
 
+External network
+================
+
+The ``external-net`` extension adds the ``router:external`` attribute to
+networks. This boolean attribute indicates the network has an external
+routing facility that's not managed by the networking service.
+
+Auto Allocated Topology
+=======================
+
+The ``auto-allocated-topology`` extension adds the ``is_default`` boolean
+attribute to networks. This value indicates the network should be used when
+auto allocating topologies.
 
 Show network details
 ====================
@@ -119,6 +150,7 @@ Response Parameters
    - created_at: created_at_resource
    - dns_domain: dns_domain
    - id: network-id
+   - l2_adjacency: l2_adjacency
    - mtu: mtu
    - name: network-name
    - port_security_enabled: network-port_security_enabled
@@ -137,6 +169,7 @@ Response Parameters
    - updated_at: updated_at_resource
    - vlan_transparent: vlan_transparent
    - description: description
+   - is_default: network_is_default
 
 Response Example
 ----------------
@@ -165,7 +198,7 @@ Updates a network.
 
 Normal response codes: 200
 
-Error response codes: 400, 401, 403, 404
+Error response codes: 400, 401, 403, 404, 412
 
 Request
 -------
@@ -187,6 +220,7 @@ Request
    - segments: segments
    - shared: network-shared-request
    - description: description-request
+   - is_default: network_is_default-request
 
 Request Example
 ---------------
@@ -217,6 +251,7 @@ Response Parameters
    - availability_zones: availability_zones
    - dns_domain: dns_domain
    - id: network-id
+   - l2_adjacency: l2_adjacency
    - mtu: mtu
    - name: network-name
    - port_security_enabled: network-port_security_enabled
@@ -233,6 +268,7 @@ Response Parameters
    - subnets: network-subnets
    - tenant_id: project_id
    - description: description
+   - is_default: network_is_default
 
 Response Example
 ----------------
@@ -254,7 +290,7 @@ Deletes a network and its associated resources.
 
 Normal response codes: 204
 
-Error response codes: 401, 404, 409
+Error response codes: 401, 404, 409, 412
 
 Request
 -------
@@ -315,6 +351,7 @@ Response Parameters
    - availability_zones: availability_zones
    - dns_domain: dns_domain
    - id: network-id
+   - l2_adjacency: l2_adjacency
    - mtu: mtu
    - name: network-name
    - port_security_enabled: network-port_security_enabled
@@ -332,6 +369,7 @@ Response Parameters
    - tenant_id: project_id
    - vlan_transparent: vlan_transparent
    - description: description
+   - is_default: network_is_default
 
 Response Example
 ----------------
@@ -387,6 +425,8 @@ Request
    - tenant_id: project_id-request
    - vlan_transparent: vlan_transparent-request
    - description: description-request
+   - is_default: network_is_default-request
+   - availability_zone_hints: availability_zone_hints-request
 
 Request Example
 ---------------
@@ -417,6 +457,7 @@ Response Parameters
    - availability_zones: availability_zones
    - dns_domain: dns_domain
    - id: network-id
+   - l2_adjacency: l2_adjacency
    - mtu: mtu
    - name: network-name
    - port_security_enabled: network-port_security_enabled
@@ -434,6 +475,7 @@ Response Parameters
    - tenant_id: project_id
    - vlan_transparent: vlan_transparent
    - description: description
+   - is_default: network_is_default
 
 Response Example
 ----------------
@@ -491,6 +533,7 @@ Request
    - tenant_id: project_id-request
    - vlan_transparent: vlan_transparent-request
    - description: description-request
+   - availability_zone_hints: availability_zone_hints-request
 
 Request Example
 ---------------
@@ -509,6 +552,7 @@ Response Parameters
    - availability_zones: availability_zones
    - dns_domain: dns_domain
    - id: network-id
+   - l2_adjacency: l2_adjacency
    - mtu: mtu
    - name: network-name
    - port_security_enabled: network-port_security_enabled
@@ -526,6 +570,7 @@ Response Parameters
    - tenant_id: project_id
    - vlan_transparent: vlan_transparent
    - description: description
+   - is_default: network_is_default
 
 Response Example
 ----------------

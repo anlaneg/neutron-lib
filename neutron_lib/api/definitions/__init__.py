@@ -32,6 +32,7 @@ from neutron_lib.api.definitions import firewall_v2
 from neutron_lib.api.definitions import firewallrouterinsertion
 from neutron_lib.api.definitions import flavors
 from neutron_lib.api.definitions import ip_allocation
+from neutron_lib.api.definitions import ip_substring_port_filtering
 from neutron_lib.api.definitions import l2_adjacency
 from neutron_lib.api.definitions import l3
 from neutron_lib.api.definitions import l3_ext_gw_mode
@@ -40,6 +41,7 @@ from neutron_lib.api.definitions import l3_flavors
 from neutron_lib.api.definitions import logging
 from neutron_lib.api.definitions import logging_resource
 from neutron_lib.api.definitions import metering
+from neutron_lib.api.definitions import multiprovidernet
 from neutron_lib.api.definitions import network
 from neutron_lib.api.definitions import network_availability_zone
 from neutron_lib.api.definitions import network_ip_availability
@@ -53,13 +55,21 @@ from neutron_lib.api.definitions import portbindings_extended
 from neutron_lib.api.definitions import project_id
 from neutron_lib.api.definitions import provider_net
 from neutron_lib.api.definitions import qos
+from neutron_lib.api.definitions import qos_default
+from neutron_lib.api.definitions import qos_rule_type_details
+from neutron_lib.api.definitions import revisionifmatch
 from neutron_lib.api.definitions import router_availability_zone
 from neutron_lib.api.definitions import router_interface_fip
+from neutron_lib.api.definitions import routerservicetype
+from neutron_lib.api.definitions import segment
+from neutron_lib.api.definitions import servicetype
+from neutron_lib.api.definitions import sorting
 from neutron_lib.api.definitions import subnet
 from neutron_lib.api.definitions import subnet_onboard
 from neutron_lib.api.definitions import subnetpool
 from neutron_lib.api.definitions import trunk
 from neutron_lib.api.definitions import trunk_details
+from neutron_lib.api.definitions import vlantransparent
 
 
 _ALL_API_DEFINITIONS = {
@@ -85,6 +95,7 @@ _ALL_API_DEFINITIONS = {
     firewallrouterinsertion,
     flavors,
     ip_allocation,
+    ip_substring_port_filtering,
     l2_adjacency,
     l3,
     l3_ext_gw_mode,
@@ -93,6 +104,7 @@ _ALL_API_DEFINITIONS = {
     logging,
     logging_resource,
     metering,
+    multiprovidernet,
     network,
     network_availability_zone,
     network_ip_availability,
@@ -106,11 +118,19 @@ _ALL_API_DEFINITIONS = {
     project_id,
     provider_net,
     qos,
+    qos_default,
+    qos_rule_type_details,
+    revisionifmatch,
     router_availability_zone,
     router_interface_fip,
+    routerservicetype,
+    segment,
+    servicetype,
+    sorting,
     subnet,
     subnet_onboard,
     subnetpool,
     trunk,
-    trunk_details
+    trunk_details,
+    vlantransparent
 }

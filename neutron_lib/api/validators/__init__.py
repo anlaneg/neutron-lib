@@ -809,7 +809,7 @@ def _validate_dict_item(key, key_validator, data):
             try:
                 val_func = validators[k]
             except KeyError:
-                msg = _("Validator '%s' does not exist.") % k
+                msg = _("Validator '%s' does not exist") % k
                 LOG.debug(msg)
                 return msg
             val_params = v
@@ -939,21 +939,21 @@ def validate_port_range_or_none(data, valid_values=None):
     data = str(data)
     ports = data.split(':')
     if len(ports) > 2:
-        msg = _("Port range must be two integers separated by a colon.")
+        msg = _("Port range must be two integers separated by a colon")
         LOG.debug(msg)
         return msg
     for p in ports:
         if len(p) == 0:
-            msg = _("Port range must be two integers separated by a colon.")
+            msg = _("Port range must be two integers separated by a colon")
             LOG.debug(msg)
             return msg
         if not netutils.is_valid_port(p):
-            msg = _("Invalid port: %s.") % p
+            msg = _("Invalid port: %s") % p
             LOG.debug(msg)
             return msg
-    if len(ports) > 1 and ports[0] > ports[1]:
+    if len(ports) > 1 and int(ports[0]) > int(ports[1]):
         msg = _("First port in a port range must be lower than the second "
-                "port.")
+                "port")
         LOG.debug(msg)
         return msg
 
@@ -1002,7 +1002,8 @@ def validate_subports(data, valid_values=None):
         if segmentation_type == 'inherit':
             return
         segmentation_id = subport.get("segmentation_id")
-        if (not segmentation_type or not segmentation_id) and len(subport) > 1:
+        if ((not segmentation_type or segmentation_id is None)
+                and len(subport) > 1):
             msg = _("Invalid subport details '%s': missing segmentation "
                     "information. Must specify both segmentation_id and "
                     "segmentation_type") % subport
@@ -1014,7 +1015,7 @@ def validate_subports(data, valid_values=None):
                                  "subport": subport["port_id"]}
             LOG.debug(msg)
             return msg
-        if segmentation_id:
+        if segmentation_id is not None:
             segmentations[segmentation_type].add(segmentation_id)
 
 
