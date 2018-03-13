@@ -10,25 +10,26 @@ appropriate external gateway.
 
 This resource is provided when ``router`` extension is enabled.
 
-Extra routes extension (``extraroute``)
-=======================================
+Distributed virtual router extension
+====================================
+
+The ``dvr`` extension enables the functionality of configuring a router as a
+distributed virtual router, adding ``distributed`` parameter.
+
+Extra routes extension
+======================
 
 The extra route extension (``extraroute``) extends ``router`` resources adding
 a ``routes`` attribute that contains an array of route objects. Each route
 object has a ``destination`` and ``nexthop`` attribute representing the route.
 
-Router availability zone extension (``router_availability_zones``)
-==================================================================
+Router availability zone extension
+==================================
 
 The ``router_availability_zone`` extension adds the ``availability_zones``
 and ``availability_zone_hints`` attributes to ``routers``, allowing scheduling
 based on availability zones and hints.
 This extension requires ``router`` and ``availability_zone`` extensions.
-
-Distributed virtual router extension (``dvr``)
-==============================================
-The ``dvr`` extension enables the functionality of configuring a router as a
-distributed virtual router, adding ``distributed`` parameter.
 
 List routers
 ============
@@ -56,6 +57,17 @@ Request
 
 .. rest_parameters:: parameters.yaml
 
+   - id: id-query
+   - tenant_id: project_id-query
+   - project_id: project_id-query
+   - name: name-query
+   - description: description-query
+   - admin_state_up: admin_state_up-query
+   - revision_number: revision_number-query
+   - tags: tags-query
+   - tags-any: tags-any-query
+   - not-tags: not-tags-query
+   - not-tags-any: not-tags-any-query
    - fields: fields
 
 Response Parameters
